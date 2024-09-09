@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.projetomv.projetomv.dto.ClienteDto;
 import com.projetomv.projetomv.dto.ContaDto;
+import com.projetomv.projetomv.dto.MovimentacaoDto;
 import com.projetomv.projetomv.model.Cliente;
 import com.projetomv.projetomv.model.Conta;
+import com.projetomv.projetomv.model.Movimentacao;
 import com.projetomv.projetomv.repository.RepositoryCliente;
 import com.projetomv.projetomv.repository.RepositoryConta;
 import com.projetomv.projetomv.repository.RepositoryMovimentacao;
@@ -37,6 +39,7 @@ public class ControladorPrincipal {
     @Autowired
     RepositoryMovimentacao repositoryMovimentacao;
 
+    // EndPoints Relacionados à Clientes.
     @PostMapping("cadastrar-clientes")
     private ResponseEntity<?> cadastrarclientes(@RequestBody @Valid ClienteDto clienteDto,
             BindingResult bindingResult) {
@@ -102,6 +105,7 @@ public class ControladorPrincipal {
         }
     }
 
+    // EndPoints Relacionados à Contas.
     @PostMapping("cadastrar-contas")
     private ResponseEntity<?> cadastrarcontas(@RequestBody @Valid ContaDto contaDto,
             BindingResult bindingResult) {
@@ -162,6 +166,72 @@ public class ControladorPrincipal {
             Conta contaAtualizada = repositoryConta.save(contasExistente);
 
             return ResponseEntity.ok(contaAtualizada);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    // EndPoints Relacionados à Movimentações.
+    @PostMapping("cadastrar-movimentacoes")
+    private ResponseEntity<?> cadastrarmovimentacoes(@RequestBody @Valid MovimentacaoDto movimentacaoDtoDto,
+            BindingResult bindingResult) {
+        try {
+            Movimentacao movimentacao = new Movimentacao();
+
+            movimentacao.setTipo(movimentacaoDtoDto.getTipo());
+            movimentacao.setDataMovimentacao(movimentacaoDtoDto.getDataMovimentacao());
+            movimentacao.setConta(movimentacaoDtoDto.getConta());
+            movimentacao.setValor(movimentacaoDtoDto.getValor());
+
+            movimentacao = repositoryMovimentacao.save(movimentacao);
+
+            return new ResponseEntity<>("Movimentação Cadastrada com sucesso", HttpStatus.CREATED);
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Erro ao cadastrar movimentação" + e.getMessage());
+        }
+
+    }
+
+    @GetMapping(value = "listar-movimentacao/{id_movimentacao}")
+    public ResponseEntity<Movimentacao> listarMovimentacao(@PathVariable Long id_movimentacao) {
+        Optional<Movimentacao> movimentacao = repositoryMovimentacao.findById(id_movimentacao);
+
+        if (movimentacao.isPresent()) {
+            return ResponseEntity.ok(movimentacao.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("deletar-movimentacao/(id_movimentacao)")
+    public ResponseEntity<Long> deletarMovimentacao(@PathVariable Long id_movimentacao) {
+        boolean existeMovimentacao = repositoryMovimentacao.existsById(id_movimentacao);
+        if (existeMovimentacao) {
+            repositoryMovimentacao.deleteById(id_movimentacao);
+            return new ResponseEntity<>(id_movimentacao, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(id_movimentacao, HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping("atualizar-movimentacao/{id_movimentacao}")
+    public ResponseEntity<Movimentacao> atualizarMovimentacao(@PathVariable Long id_movimentacao,
+            @RequestBody MovimentacaoDto movimentacaoDto) {
+        Optional<Movimentacao> existingMovimentacao = repositoryMovimentacao.findById(id_movimentacao);
+
+        if (existingMovimentacao.isPresent()) {
+
+            Movimentacao movimentacaoExistente = existingMovimentacao.get();
+
+            movimentacaoExistente.setDataMovimentacao(movimentacaoDto.getDataMovimentacao());
+            movimentacaoExistente.setValor(movimentacaoDto.getValor());
+            movimentacaoExistente.setTipo(movimentacaoDto.getTipo());
+            movimentacaoExistente.setConta(movimentacaoDto.getConta());
+
+            Movimentacao movimentacaoatualizada = repositoryMovimentacao.save(movimentacaoExistente);
+
+            return ResponseEntity.ok(movimentacaoatualizada);
         } else {
             return ResponseEntity.notFound().build();
         }
