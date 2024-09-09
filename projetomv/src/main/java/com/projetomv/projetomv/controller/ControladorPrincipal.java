@@ -84,13 +84,13 @@ public class ControladorPrincipal {
     }
 
     @PutMapping("atualizar-clientes/{id_clientes}")
-    public ResponseEntity<Cliente> atualizarClientes(@PathVariable Long id_clietes,
+    public ResponseEntity<Cliente> atualizarClientes(@PathVariable Long id_cliete,
             @RequestBody ClienteDto clienteDto) {
-        Optional<Cliente> existingClientes = repositoryCliente.findById(id_clietes);
+        Optional<Cliente> existingCliente = repositoryCliente.findById(id_cliete);
 
-        if (existingClientes.isPresent()) {
+        if (existingCliente.isPresent()) {
 
-            Cliente clientesExistente = existingClientes.get();
+            Cliente clientesExistente = existingCliente.get();
             clientesExistente.setNome(clienteDto.getNome());
             clientesExistente.setEndereco(clienteDto.getEndereco());
             clientesExistente.setDataCadastro(clienteDto.getDataCadastro());
