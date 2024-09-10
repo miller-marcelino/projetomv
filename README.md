@@ -15,16 +15,17 @@ Projeto MV Spring Boot é uma aplicação web desenvolvida para gerenciar finan�
 
 # Tecnologias utilizadas:
 
-Spring Boot
-Spring Data JPA
-MySQL
-Lombok (opcional)
-Springdoc (opcional)
-Hibernate Validator (opcional)
-Pré-requisitos:
+Spring Boot,
+Spring Data JPA,
+MySQL,
+Lombok (opcional),
+Springdoc (opcional),
+Hibernate Validator (opcional),
 
-Java 17
-Maven
+# Pré-requisitos:
+
+Java 17,
+Maven,
 MySQL (ou banco de dados relacional equivalente)
 
 # Documentação:
