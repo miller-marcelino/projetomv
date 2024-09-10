@@ -11,6 +11,8 @@ Projeto MV Spring Boot é uma aplicação web desenvolvida para gerenciar finan�
   
 * Consulta de dados : A aplicação permite consultar dados de clientes, contas e movimentações através de endpoints RESTful.
 
+* Exclusão de dados: A aplicação também permite a exclusão de clientes, contas e movimentações através de endpoints RESTFul.
+
 # Tecnologias utilizadas:
 
 Spring Boot
