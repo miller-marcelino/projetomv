@@ -83,7 +83,7 @@ public class ControladorPrincipal {
         return new ResponseEntity<>(id_clientes, HttpStatus.NO_CONTENT);
     }
 
-    @PutMapping("atualizar-clientes/{id_clientes}")
+    @PutMapping("atualizar-clientes/{id_cliente}")
     public ResponseEntity<Cliente> atualizarClientes(@PathVariable Long id_cliete,
             @RequestBody ClienteDto clienteDto) {
         Optional<Cliente> existingCliente = repositoryCliente.findById(id_cliete);
@@ -113,9 +113,9 @@ public class ControladorPrincipal {
             Conta conta = new Conta();
 
             conta.setBanco(contaDto.getBanco());
-            conta.setCliente(contaDto.getCliente());
             conta.setAgencia(contaDto.getAgencia());
             conta.setNumero(contaDto.getNumero());
+            conta.setCliente(contaDto.getCliente());
 
             conta = repositoryConta.save(conta);
 
@@ -159,7 +159,6 @@ public class ControladorPrincipal {
             Conta contasExistente = existingConta.get();
 
             contasExistente.setBanco(contaDto.getBanco());
-            contasExistente.setCliente(contaDto.getCliente());
             contasExistente.setAgencia(contaDto.getAgencia());
             contasExistente.setNumero(contaDto.getNumero());
 
