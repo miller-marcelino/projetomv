@@ -3,13 +3,13 @@ Projeto MV Spring Boot é uma aplicação web desenvolvida para gerenciar finan�
 
 # Funcionalidades:
 
-* Cadastro de clientes : * Permite o registro de novos clientes, incluindo informações como nome, endereço, telefone e tipo de cliente (pessoa física ou jurídica).
+* Cadastro de clientes : Permite o registro de novos clientes, incluindo informações como nome, endereço, telefone e tipo de cliente (pessoa física ou jurídica).
 
-* Cadastro de contas : * Possibilita o cadastro de contas bancárias vinculadas ao cliente, informando banco, agência e número da conta.
+* Cadastro de contas : Possibilita o cadastro de contas bancárias vinculadas ao cliente, informando banco, agência e número da conta.
   
-* Cadastro de movimentações : * Permite o registro de movimentações financeiras (crédito ou débito), associadas a uma conta específica, informando data, valor e tipo da movimentação.
+* Cadastro de movimentações : Permite o registro de movimentações financeiras (crédito ou débito), associadas a uma conta específica, informando data, valor e tipo da movimentação.
   
-* Consulta de dados : * A aplicação permite consultar dados de clientes, contas e movimentações através de endpoints RESTful.
+* Consulta de dados : A aplicação permite consultar dados de clientes, contas e movimentações através de endpoints RESTful.
 
 # Tecnologias utilizadas:
 
